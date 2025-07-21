@@ -1,0 +1,19 @@
+# pyproject.toml
+[project]
+name = "simplepostapp" # Имя вашего проекта/пакета
+version = "0.1.0"
+description = "A simple FastAPI application for managing posts."
+requires-python = ">=3.11"
+dependencies = [
+    # Здесь обычно перечисляются основные зависимости проекта.
+    # Однако, если вы используете requirements.txt, то этот список может быть пустым или минимальным.
+    # Для простоты, если вы полностью полагаетесь на requirements.txt, этот файл может быть пустым,
+    # но секция [project] должна быть для "editable" установки.
+]
+
+[build-system]
+requires = ["setuptools>=61.0"] # Или "poetry-core" если используете poetry
+build-backend = "setuptools.build_meta" # Или "poetry.core.masonry.api" для poetry
+
+# [tool.pytest.ini_options] # Необязательно: настройки pytest
+# pythonpath = ["."]

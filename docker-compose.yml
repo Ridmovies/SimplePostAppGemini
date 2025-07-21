@@ -1,0 +1,41 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Сервис для базы данных PostgreSQL
+  db:
+    image: postgres:16-alpine # Используем легковесный образ PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ # Сохраняем данные БД в volume
+    environment:
+      POSTGRES_DB: simplepostapp_db # Имя базы данных
+      POSTGRES_USER: user # Имя пользователя БД
+      POSTGRES_PASSWORD: password # Пароль пользователя БД
+    ports:
+      - "5434:5432" # Пробрасываем порт БД на хост (опционально, для доступа извне контейнера)
+    healthcheck: # Проверка готовности БД
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Сервис для FastAPI приложения
+  web:
+    build: . # Собираем образ из Dockerfile в текущей директории
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload # Запускаем Uvicorn с --reload для разработки
+    volumes:
+      - .:/app # Монтируем текущую директорию в /app внутри контейнера для hot-reloading
+    ports:
+      - "8000:8000" # Пробрасываем порт FastAPI на хост
+    environment:
+      DATABASE_URL: postgresql+asyncpg://user:password@db:5432/simplepostapp_db # URL для подключения к БД
+      SECRET_KEY: your-actual-super-secret-key-for-docker-compose # Секретный ключ (для Docker Compose)
+      # Вы также можете использовать .env файл:
+      # - .env
+    depends_on:
+      db:
+        condition: service_healthy # Запускаем веб-приложение только после готовности БД
+
+# Объявление томов Docker для сохранения данных
+volumes:
+  postgres_data:
