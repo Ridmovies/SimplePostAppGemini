@@ -1,5 +1,7 @@
 # SimplePostApp
 
+## Приложение сделано с помощью ИИ-помощника Gemini
+
 [![Build Status](https://img.shields.io/badge/Status-In%20Development-blue)](link_to_ci_cd_status)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
@@ -217,8 +219,24 @@
 * **Развертывание:** Добавление конфигураций для облачных провайдеров (AWS, Google Cloud, Azure) или Kubernetes.
 
 ## Итого:
+
+### Плюсы:
+- Запустилось почти сразу
+- Понравилась структура файлов
+- 
+
+### Минусы:
 - нет .gitignore
 - нет .dockerignore
 - полностью не работает пайтест
+- нет Сервисного слоя
+- нет Базового репозитория
+- модели описаны старым Column стилем
+
+### Deprecated
+- PydanticDeprecatedSince20: Using extra keyword arguments on `Field` is deprecated and will be removed. Use `json_schema_extra` instead. (Extra keys: 'env'). Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.11/migration/
+- PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.11/migration/
+- DeprecationWarning: on_event is deprecated, use lifespan event handlers instead.
+- docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
 
 
